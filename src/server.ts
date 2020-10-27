@@ -23,26 +23,20 @@ export class Server {
     this.io = socketIO(this.httpServer);
 
     this.configureApp();
-    this.configureRoutes();
     this.handleSocketConnection();
   }
 
   private configureApp(): void {
-    this.app.use(express.static(path.join(__dirname, "../dist")));
-  }
-
-  private configureRoutes(): void {
-    this.app.get("/", (req, res) => {
-      res.sendFile("index.html");
-    });
+    this.app.use(express.static(path.join(__dirname, "../public")));
   }
 
   private handleSocketConnection(): void {
     this.io.on("connection", socket => {
-      console.log("Socket connected.");
+      // tslint:disable-next-line:no-console
+      console.log("Socket connected brah");
 
       const existingSocket = this.activeSockets.find(
-        existingSocket => existingSocket === socket.id
+        activeSocketId => activeSocketId === socket.id
       );
 
       if (!existingSocket) {
@@ -50,7 +44,7 @@ export class Server {
 
         socket.emit("update-user-list", {
           users: this.activeSockets.filter(
-            existingSocket => existingSocket !== socket.id
+            activeSocketId => activeSocketId !== socket.id
           )
         });
 
@@ -75,7 +69,7 @@ export class Server {
 
       socket.on("disconnect", () => {
         this.activeSockets = this.activeSockets.filter(
-          existingSocket => existingSocket !== socket.id
+          activeSocketId => activeSocketId !== socket.id
         );
         socket.broadcast.emit("remove-user", {
           socketId: socket.id

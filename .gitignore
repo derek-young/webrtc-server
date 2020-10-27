@@ -1,5 +1,4 @@
 .DS_Store
 node_modules
 
-src/index.js
-src/server.js
+dist/
