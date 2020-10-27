@@ -2,10 +2,10 @@
   "name": "webrtc-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "tsc && node src/index.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "tsc src/index.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'tsc' src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
