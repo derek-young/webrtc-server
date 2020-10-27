@@ -24,7 +24,7 @@ function unselectUsersFromList() {
 })()
 
 function startLocalStream() {
-  navigator.getUserMedia({
+  navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
     },
