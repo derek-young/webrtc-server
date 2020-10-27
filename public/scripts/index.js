@@ -24,22 +24,21 @@ function unselectUsersFromList() {
 })()
 
 function startLocalStream() {
-  navigator.mediaDevices.getUserMedia({
+  window.navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
-    },
-    stream => {
+    })
+    .then(stream => {
       const localVideo = document.getElementById("local-video");
       if (localVideo) {
         localVideo.srcObject = stream;
       }
 
       stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
-    },
-    error => {
+    })
+    .catch(error => {
       console.warn(error.message);
-    }
-  );
+    });
 }
 
 peerConnection.ontrack = function({
